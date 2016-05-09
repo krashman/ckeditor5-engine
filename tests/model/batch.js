@@ -54,7 +54,8 @@ describe( 'Batch', () => {
 		} );
 
 		it( 'should throw if one try to register the same batch twice', () => {
-			register( 'foo', () => {} );
+			register( 'foo', () => {
+			} );
 
 			expect( () => {
 				register( 'foo', () => {} );
@@ -96,6 +97,25 @@ describe( 'Batch', () => {
 
 			expect( Array.from( batch.getOperations() ) ).to.deep.equal( ops );
 			expect( batch.getOperations() ).to.have.property( 'next' );
+		} );
+	} );
+
+	describe( 'getDeltas', () => {
+		it( 'should return collection of deltas', () => {
+			const doc = new Document();
+			const batch = new Batch( doc );
+			const deltaA = new Delta();
+			const deltaB = new Delta();
+			const deltaC = new Delta();
+
+			const deltas = [ deltaA, deltaB, deltaC ];
+
+			batch.addDelta( deltaA );
+			batch.addDelta( deltaB );
+			batch.addDelta( deltaC );
+
+			expect( Array.from( batch.getDeltas() ) ).to.deep.equal( deltas );
+			expect( batch.getDeltas() ).to.have.property( 'next' );
 		} );
 	} );
 

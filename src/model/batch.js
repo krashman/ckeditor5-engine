@@ -99,6 +99,17 @@ export default class Batch {
 			yield* delta.operations;
 		}
 	}
+
+	/**
+	 * Gets an iterable collection of deltas.
+	 *
+	 * @returns {Iterable.<engine.treeModel.delta}
+	 */
+	*getDeltas() {
+		for ( let delta of this.deltas ) {
+			yield delta;
+		}
+	}
 }
 
 /**
